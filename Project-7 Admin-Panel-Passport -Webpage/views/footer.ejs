@@ -1,0 +1,89 @@
+<!-- footer -->
+        <!-- ============================================================== -->
+        <footer class="footer text-center">
+          All Rights Reserved by Matrix-admin. Designed and Developed by
+          <a href="https://wrappixel.com">WrapPixel</a>.
+        </footer>
+        <!-- ============================================================== -->
+        <!-- End footer -->
+        <!-- ============================================================== -->
+      </div>
+      <!-- ============================================================== -->
+      <!-- End Page wrapper  -->
+      <!-- ============================================================== -->
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Wrapper -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- All Jquery -->
+    <!-- ============================================================== -->
+    <script src="/libs/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap tether Core JavaScript -->
+    <script src="/libs/popper.js/dist/umd/popper.min.js"></script>
+    <script src="/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
+    <script src="/libs/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="/extra-libs/sparkline/sparkline.js"></script>
+    <!--Wave Effects -->
+    <script src="/js/waves.js"></script>
+    <!--Menu sidebar -->
+    <script src="/js/sidebarmenu.js"></script>
+    <!--Custom JavaScript -->
+    <script src="/js/custom.min.js"></script>
+    <!--This page JavaScript -->
+    <!-- <script src="dist/js/pages/dashboards/dashboard1.js"></script> -->
+    <!-- Charts js Files -->
+    <script src="/libs/flot/excanvas.js"></script>
+    <script src="/libs/flot/jquery.flot.js"></script>
+    <script src="/libs/flot/jquery.flot.pie.js"></script>
+    <script src="/libs/flot/jquery.flot.time.js"></script>
+    <script src="/libs/flot/jquery.flot.stack.js"></script>
+    <script src="/libs/flot/jquery.flot.crosshair.js"></script>
+    <script src="/libs/flot.tooltip/js/jquery.flot.tooltip.min.js"></script>
+    <script src="/js/pages/chart/chart-page-init.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+
+ 
+      <% if(locals.flash.success && locals.flash.success.length > 0){ %>
+      <script>
+        Swal.fire({
+          title: "<%= locals.flash.success %>",
+          text: "You clicked the button!",
+          icon: "success"
+        }); 
+          </script>
+      <% } %>
+  
+      <% if(locals.flash.error && locals.flash.error.length > 0){ %>
+       <script>
+         Swal.fire({
+          title: "<%= locals.flash.error %>",
+          text: "You clicked the button!",
+          icon: "error"
+        });
+       </script>
+      <% } %>
+ 
+   
+      <% if(locals.flash.warning && locals.flash.warning.length > 0){ %>
+        <script>
+          Swal.fire({
+          title: "<%= locals.flash.warning %>",
+          text: "You clicked the button!",
+          icon: "warning"
+        });
+        </script>
+      <% } %>
+
+
+    <% if(locals.flash.logout && locals.flash.logout.length > 0){ %>
+      <script>
+        Swal.fire({
+          title: "<%= locals.flash.logout %>",
+          text: "You clicked the button!",
+          icon: "warning"
+        });
+        </script>
+      <% } %> 
+  </body>
+</html>
