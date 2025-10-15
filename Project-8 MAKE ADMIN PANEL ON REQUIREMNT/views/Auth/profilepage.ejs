@@ -1,0 +1,49 @@
+<%- include('../header') %>
+
+<div class="page-wrapper">
+  <div class="page-breadcrumb">
+    <div class="row">
+      <div class="col-12 d-flex no-block align-items-center">
+        <h4 class="page-title">Admin Profile</h4>
+        <div class="ml-auto text-right">
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active" aria-current="page">Profile</li>
+            </ol>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-6 offset-md-3">
+        <div class="card">
+          <div class="card-body text-center">
+
+                 <%if (admin.profile == "") {%>
+                 <img src="/images/users/1.jpg"
+                  alt="user" class="rounded-circle" width="31" />
+                <%} else {%>
+                  <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark pro-pic" href=""
+                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <img style="border-radius: 50%;" src="<%=admin.profile%>"  height="120px" width="120px">
+                </a>
+              <%}%> 
+            <h3><%= admin.name %></h3>
+            <p><strong>Email:</strong> <%= admin.email %></p>
+            <p><strong>City:</strong> <%= admin.city %></p>
+            <p><strong>Gender:</strong> <%= admin.gender %></p>
+            <p><strong>Qualification:</strong> <%= admin.qualification %></p>
+            <p><strong>Phone:</strong> <%= admin.phone || "9282837373" %></p>
+            <p><strong>Role:</strong> <%= admin.role || "Admin" %></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%- include('../footer') %>

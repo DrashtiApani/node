@@ -1,0 +1,46 @@
+<%- include('../header') %>
+
+  <div class="container my-5">
+    <div class="card shadow-sm">
+      <div class="card-header bg-primary text-white">
+        <h3>
+          <%= product.title %>
+        </h3>
+      </div>
+      <div class="card-body">
+        <% if(product.productimage){ %>
+          <img src="<%= product.productimage %>" class="img-fluid mb-3 d-block mx-auto"
+            style="height:400px; width:400px; object-fit: contain;" alt="Product Image">
+          <% } %>
+
+            <p><strong>Description:</strong></p>
+            <p>
+              <%= product.description %>
+            </p>
+            <p><strong>Price:</strong> ₹<%= product.price %>
+            </p>
+            <p><strong>Quantity:</strong>
+              <%= product.quantity %>
+            </p>
+
+            <div class="mb-3">
+              <% if(product.category){ %>
+                <span class="badge  me-1" style="background-color: orange;color: #ffffff;;">Category: <%=
+                    product.category.categoryname %></span>
+                <% } %>
+                  <% if(product.subcategory){ %>
+                    <span class="badge  me-1" style="background-color: #17a2b8;color: #ffffff;">Subcategory: <%=
+                        product.subcategory.subcategory %></span>
+                    <% } %>
+                      <% if(product.extracategory){ %>
+                        <span class="badge " style="background-color: #dc3545;color: #ffffff;">Extra Category: <%=
+                            product.extracategory.extracategory %></span>
+                        <% } %>
+            </div>
+
+            <a href="/product/viewproduct" class="btn btn-secondary mt-3">Back to All Products</a>
+      </div>
+    </div>
+  </div>
+
+  <%- include('../footer') %>

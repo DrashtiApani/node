@@ -1,0 +1,108 @@
+<%- include('header') %>
+    <!-- ============================================================== -->
+    <!-- End Left Sidebar - style you can find in sidebar.scss  -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- Page wrapper  -->
+    <!-- ============================================================== -->
+    <div class="page-wrapper">
+        <!-- ============================================================== -->
+        <!-- Bread crumb and right sidebar toggle -->
+        <!-- ============================================================== -->
+        <div class="page-breadcrumb">
+            <div class="row">
+                <div class="col-12 d-flex no-block align-items-center">
+                    <h4 class="page-title">Tables</h4>
+                    <div class="ml-auto text-right">
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Library</li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ============================================================== -->
+        <!-- End Bread crumb and right sidebar toggle -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Container fluid  -->
+        <!-- ============================================================== -->
+        <div class="container-fluid">
+            <!-- ============================================================== -->
+            <!-- Start Page Content -->
+            <!-- ============================================================== -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <form>
+                                <input type="text" name="search" style="padding: 10px; width: 50%;"
+                                    placeholder="Search Here">&nbsp;&nbsp;&nbsp;<input type="submit">
+                                <br><br>
+                            </form>
+                            <h5 class="card-title m-b-0">Static Table</h5>
+                        </div>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Image</th>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Email</th>
+                                    <th scope="col">City</th>
+                                    <th scope="col">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% alladmin.map((v, i)=> { %>
+                                    <tr>
+                                        <th>
+                                            <%= ++i %>
+                                        </th>
+                                        <td>
+                                            <img src="/uploads/adminimages/<%= v.profile %>" width="50" height="50"
+                                                class="rounded-circle">
+                                        </td>
+
+                                        <td>
+                                            <%= v.name %>
+                                        </td>
+                                        <td>
+                                            <%= v.email %>
+                                        </td>
+                                        <td>
+                                            <%= v.city %>
+                                        </td>
+                                        <td>
+                                            <a href="/admin/deleteAdmin/<%= v._id %>" class="text-danger">Delete</a> |
+                                            <a href="/admin/editAdmin/<%= v._id %>" class="text-warning">Edit</a>
+                                        </td>
+                                    </tr>
+                                    <% }) %>
+
+
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+            <!-- ============================================================== -->
+            <!-- End PAge Content -->
+            <!-- ============================================================== -->
+            <!-- ============================================================== -->
+            <!-- Right sidebar -->
+            <!-- ============================================================== -->
+            <!-- .right-sidebar -->
+            <!-- ============================================================== -->
+            <!-- End Right sidebar -->
+            <!-- ============================================================== -->
+        </div>
+        <!-- ============================================================== -->
+        <!-- End Container fluid  -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <%- include('footer') %>

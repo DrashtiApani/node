@@ -1,0 +1,151 @@
+<%- include('../header') %>
+
+    <div class="container my-5">
+        <div class="card shadow-lg border-0 rounded-3">
+            <div class="card-header bg-dark text-white">
+                <h4 class="mb-0">Add New Product</h4>
+            </div>
+            <div class="card-body p-4">
+
+                <form method="post" action="/product/insertproduct" enctype="multipart/form-data">
+
+                    <!-- Title -->
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">Product Title</label>
+                        <input type="text" name="title" placeholder="e.g. iPhone 15 Pro Max" required
+                            class="form-control">
+                    </div>
+
+                    <!-- Description -->
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">Description</label>
+                        <textarea name="description" rows="4" placeholder="Enter detailed product description"
+                            class="form-control"></textarea>
+                    </div>
+
+                    <div class="row">
+                        <!-- Price -->
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label fw-semibold">Price (₹)</label>
+                            <input type="number" name="price" placeholder="e.g. 79999" required class="form-control">
+                        </div>
+
+                        <!-- Quantity -->
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label fw-semibold">Quantity</label>
+                            <input type="number" name="quantity" placeholder="e.g. 20" required class="form-control">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <!-- Category -->
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label fw-semibold">Category</label>
+                            <select name="category" id="category" class="form-select" required>
+                                <option value="">-- Select Category --</option>
+                                <% category.forEach(c=> { %>
+                                    <option value="<%= c.id %>">
+                                        <%= c.categoryname %>
+                                    </option>
+                                    <% }) %>
+                            </select>
+                        </div>
+
+                        <!-- Subcategory -->
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label fw-semibold">Subcategory</label>
+                            <select name="subcategory" id="subcategory" class="form-select" required>
+                                <option value="">-- Select Subcategory --</option>
+                                <% subcategory.forEach(s=> { %>
+                                    <option value="<%= s.id %>">
+                                        <%= s.subcategoryn %>
+                                    </option>
+                                    <% }) %>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Extra Category (niche) -->
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">Extra Category</label>
+                        <select name="extracategory" id="extracategory" class="form-select" required>
+                            <option value="">-- Select Extra Category --</option>
+                            <% extracategory.forEach(e=> { %>
+                                <option value="<%= e.id %>">
+                                    <%= e.extracategoryname %>
+                                </option>
+                                <% }) %>
+                        </select>
+                    </div>
+
+
+                    <!-- Product Image -->
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">Product Image</label>
+                        <input type="file" name="productimage" required class="form-control">
+                        <small class="text-muted">Upload clear product images (Max 5MB, JPG/PNG)</small>
+                    </div>
+
+                     <!-- Buttons -->
+                    <div class="d-flex justify-content-end gap-2">
+                        <a href="/product/viewproduct" class="btn btn-outline-secondary">Cancel</a>
+                        <button type="submit" class="btn " style="border-radius: 10px; margin-left: 10px; background-color: #343A40; color: white; font-weight: 700; ">Add Product</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <%- include('../footer') %>
+
+        <script>
+
+            document.addEventListener('DOMContentLoaded', () => {
+                const categorySelect = document.getElementById('category');
+                const subcategorySelect = document.getElementById('subcategory');
+                const extracategorySelect = document.getElementById('extracategory');
+
+
+                ///////////////////category to subcategory mate 
+                categorySelect.addEventListener('change', () => {
+                    let categoryId = categorySelect.value;
+
+                    // Clear existing options in subcategory dropdown
+                    subcategorySelect.innerHTML = '<option value="">-- Select Subcategory --</option>';
+                    extracategorySelect.innerHTML = '<option value="">-- Select Extra Category --</option>';
+
+                    fetch(`/product/subcategory?categoryId=${categoryId}`)
+                        .then(res => res.json())
+                        .then(data => {
+                            data.subcategories.forEach(v => {
+                                let option = document.createElement('option');
+                                option.value = v._id;
+                                option.textContent = v.subcategory;
+                                subcategorySelect.append(option);
+                            });
+                        })
+                        .catch(err => console.error(err));
+                });
+
+                /////////////////// subcategory to extracategory mate
+                subcategorySelect.addEventListener('change', () => {
+                    let subcategoryId = subcategorySelect.value;
+
+                    // Clear existing options in extracategory dropdown
+                    extracategorySelect.innerHTML = '<option value="">-- Select Extra Category --</option>';
+
+                    fetch(`/product/extracategory?subcategoryId=${subcategoryId}`)
+                        .then(res => res.json())
+                        .then(data => {
+                            data.extracategories.forEach(v => {
+                                let option = document.createElement('option');
+                                option.value = v._id;
+                                option.textContent = v.extracategory;
+                                extracategorySelect.append(option);
+                            });
+                        })
+                        .catch(err => console.error(err));
+                });
+
+            });
+        </script>

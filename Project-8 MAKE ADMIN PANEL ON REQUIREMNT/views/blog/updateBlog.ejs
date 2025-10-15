@@ -1,0 +1,55 @@
+<%- include('../header') %>
+
+<div class="container mt-5">
+  <div class="card shadow-sm">
+    <div class="card-header bg-primary text-white">
+      <h3>Update Blog</h3>
+    </div>
+    <div class="card-body">
+      <form method="post" action="/blog/updateBlog/<%= blogdata._id %>" enctype="multipart/form-data">
+
+        <div class="mb-3">
+          <label class="form-label">Title</label>
+          <input type="text" name="title" class="form-control" value="<%= blogdata.title %>" required>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Category</label>
+          <input type="text" name="category" class="form-control" value="<%= blogdata.category %>">
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Author</label>
+          <input type="text" name="author" class="form-control" value="<%= blogdata.author %>">
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Current Image</label><br>
+          <% if(blogdata.image){ %>
+            <img src="/<%= blogdata.image %>" width="100" alt="Blog Image">
+          <% } %>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Change Image</label>
+          <input type="file" name="image" class="form-control">
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Content</label>
+          <textarea name="content" class="form-control" rows="6"><%= blogdata.content %></textarea>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Tags</label>
+          <input type="text" name="tags" class="form-control" value="<%= blogdata.tags %>">
+        </div>
+
+        <button type="submit" class="btn btn-success">Update</button>
+        <a href="/blog/viewBlog" class="btn btn-secondary">Cancel</a>
+      </form>
+    </div>
+  </div>
+</div>
+
+<%- include('../footer') %>

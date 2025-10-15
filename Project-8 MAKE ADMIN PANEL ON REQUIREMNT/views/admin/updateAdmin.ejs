@@ -1,0 +1,94 @@
+<%- include('../header') %>
+
+<div class="container mt-5">
+  <h3>Edit Admin</h3>
+  <div class="card shadow-sm">
+    <div class="card-body">
+      <% let name = admindata.name.split(" "); %>
+
+     <form method="post" action="/admin/updateadmin/<%= admindata._id %>" enctype="multipart/form-data">
+
+        <!-- First & Last Name -->
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label>First Name</label>
+            <input type="text" name="fname" value="<%= name[0] || '' %>" class="form-control" placeholder="First Name">
+          </div>
+          <div class="form-group col-md-6">
+            <label>Last Name</label>
+            <input type="text" name="lname" value="<%= name[1] || '' %>" class="form-control" placeholder="Last Name">
+          </div>
+        </div>
+
+        <!-- Email & Password -->
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label>Email</label>
+            <input type="email" name="email" value="<%= admindata.email %>" class="form-control" placeholder="Email">
+          </div>
+          <div class="form-group col-md-6">
+            <label>Password</label>
+            <input type="password" name="password" class="form-control" placeholder="Password">
+          </div>
+        </div>
+
+        <!-- City -->
+        <div class="form-group">
+          <label>City</label>
+          <select name="city" class="form-control">
+            <% let cities = ["Surat", "Vapi", "Mumbai", "Jaipur"]; %>
+            <% cities.forEach(city => { %>
+              <option value="<%= city %>" <% if(city === admindata.city) { %> selected <% } %>><%= city %></option>
+            <% }); %>
+          </select>
+        </div>
+
+        <!-- Gender -->
+        <div class="form-group">
+          <label>Gender</label><br>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="gender" value="Male" <% if(admindata.gender === 'Male') { %> checked <% } %>>
+            <label class="form-check-label">Male</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="gender" value="Female" <% if(admindata.gender === 'Female') { %> checked <% } %>>
+            <label class="form-check-label">Female</label>
+          </div>
+        </div>
+
+        <!-- Qualification -->
+        <div class="form-group">
+          <label>Qualification</label><br>
+          <% let qualifications = ["10Th","11Th","12Th"]; %>
+          <% qualifications.forEach((q, i) => { %>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="checkbox" name="qualification" value="<%= q %>" <% if(admindata.qualification.includes(q)) { %> checked <% } %>>
+              <label class="form-check-label"><%= q %></label>
+            </div>
+          <% }); %>
+        </div>
+
+        <!-- Profile Image -->
+        <div class="form-group">
+          <label>Profile Image</label>
+          <input type="file" name="profile" class="form-control-file">
+          <% if(admindata.profile) { %>
+            <img src="/<%= admindata.profile %>" alt="Profile" class="img-thumbnail mt-2" style="width:100px; height:100px;">
+          <% } %>
+        </div>
+
+        <!-- Message -->
+        <div class="form-group">
+          <label>Message</label>
+          <textarea name="message" class="form-control" rows="3"><%= admindata.message %></textarea>
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" class="btn btn-primary">Update Admin</button>
+        <a href="/admin/viewAdmin" class="btn btn-secondary">Cancel</a>
+      </form>
+    </div>
+  </div>
+</div>
+
+<%- include('../footer') %>

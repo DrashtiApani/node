@@ -1,0 +1,59 @@
+<%- include('../header') %>
+<div class="page-wrapper">
+  <div class="container-fluid">
+    <h4 class="mb-4">Edit Extra Category</h4>
+    <form
+      method="post"
+      action="/extracategory/updateextracategory/<%=data._id%>"
+      enctype="multipart/form-data"
+    >
+      <!-- Category -->
+      <div class="form-group">
+        <label>Category</label>
+        <select name="category" class="form-control" disabled required style="background-color: white;" >
+          <% category.map((cat)=>{ %>
+          <option value="<%=cat._id%>" <%= data.category.equals(cat._id) ? 'selected' : '' %>>
+            <%=cat.categoryname%>
+          </option>
+          <% }) %>
+        </select>
+      </div>
+
+      <!-- SubCategory -->
+      <div class="form-group">
+        <label>SubCategory</label>
+        <select name="subcategory" class="form-control" disabled required style="background-color: white;">
+          <% subcategory.map((sub)=>{ %>
+          <option value="<%=sub._id%>" <%= data.subcategory.equals(sub._id) ? 'selected' : '' %>>
+            <%=sub.subcategory%>
+          </option>
+          <% }) %>
+        </select>
+      </div>
+
+      <!-- ExtraCategory -->
+      <div class="form-group">
+        <label>Extra Category</label>
+        <input
+          type="text"
+          name="extracategory"
+          class="form-control"
+          value="<%= data.extracategory %>"
+          required
+        />
+      </div>
+
+      <!-- Image -->
+      <div class="form-group">
+        <label>Current Image</label><br />
+        <img src="<%= data.image %>" style="height:100px;width:100px;" /><br />
+        <label>Change Image</label>
+        <input type="file" name="image" class="form-control" />
+      </div>
+
+      <!-- Submit -->
+      <button type="submit" class="btn btn-primary">Update</button>
+    </form>
+  </div>
+</div>
+<%- include('../footer') %>

@@ -1,0 +1,106 @@
+<%- include('../header') %>
+
+    <div class="container my-5">
+        <h2 class="mb-4 fw-bold">All Products</h2>
+
+        <!-- <form method="GET" class="search-container"> <input type="text" name="search" placeholder="Search blogs..."
+                value="<%= typeof search !== 'undefined' ? search : '' %>"> <button type="submit"><i
+                    class="fa fa-search me-1"></i> Search</button> -->
+
+            <div class="row justify-content-center g-4">
+                <% products.forEach((p)=> { %>
+                    <div class="card col-12 col-sm-6 col-md-5 col-lg-4 col-xl-3 d-flex justify-content-center">
+                        <div class="card h-100 border-0 shadow-sm product-card" style="max-width: 300px; width: 100%;">
+                            <img src="<%= p.productimage %>" class="card-img-top"
+                                style="height: 220px;width: 300px;margin-top: 5px;  object-fit: contain;"
+                                alt="Product Image">
+                            <div class="card-body d-flex flex-column">
+                                <h6 class="fw-semibold text-dark mb-1">
+                                    <%= p.title %>
+                                </h6>
+                                <p class="text-muted small mb-2">
+                                    <%= p.description ? p.description.substring(0, 60) : '' %>...
+                                </p>
+                                <p class="mb-2 fw-bold text-danger fs-5">₹<%= p.price %>
+                                </p>
+                                <p class="mb-1"><small class="text-muted">Qty:</small>
+                                    <%= p.quantity %>
+                                </p>
+                                <div class="mt-auto d-flex justify-content-between flex-wrap">
+                                    <a href="/product/editproduct/<%= p.id %>"
+                                        class="btn btn-sm btn-outline-warning mb-1">✏
+                                        Edit</a>
+                                    <a href="/product/viewproduct/<%= p.id %>"
+                                        class="btn btn-sm btn-outline-primary mb-1">🔍 Read More</a>
+                                    <button class="btn btn-sm btn-outline-danger mb-1 delete-btn"
+                                        data-id="<%= p.id %>">🗑
+                                        Delete</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <% }) %>
+            </div>
+    </div>
+
+    <%- include('../footer') %>
+
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script>
+            document.querySelectorAll('.delete-btn').forEach(btn => {
+                btn.addEventListener('click', function () {
+                    const productId = this.getAttribute('data-id');
+                    Swal.fire({
+                        title: "Delete this product?",
+                        text: "You won't be able to recover it!",
+                        icon: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#d33",
+                        cancelButtonColor: "#3085d6",
+                        confirmButtonText: "Yes, delete it!"
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            window.location.href = `/product/deleteproduct/${productId}`;
+                        }
+                    });
+                });
+            });
+        </script>
+
+        <style>
+            .product-card {
+                transition: transform 0.2s ease, box-shadow 0.2s ease;
+                border-radius: 0.5rem;
+                display: flex;
+                flex-direction: column;
+            }
+
+            .product-card:hover {
+                transform: translateY(-6px);
+                box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+            }
+
+            .product-card .btn {
+                min-width: 80px;
+            }
+
+            /* Equal height cards */
+            .card-body {
+                display: flex;
+                flex-direction: column;
+                flex-grow: 1;
+                margin-top: 25px;
+                margin-bottom: 25px;
+                padding: 15px;
+                gap: 10px;
+                justify-content: space-between;
+                width: 100%;
+
+            }
+
+            .card {
+                border-radius: 25px;
+                cursor: pointer;
+
+            }
+        </style>

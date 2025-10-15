@@ -1,0 +1,74 @@
+<%- include('../header') %>
+
+<div class="container mt-5">
+  <div class="card shadow-sm">
+    <div class="card-header bg-primary text-white">
+      <h3 class="mb-0">Add New Blog</h3>
+    </div>
+    <div class="card-body">
+      <form method="post" action="/blog/insert" enctype="multipart/form-data">
+
+        <!-- Title -->
+        <div class="mb-3">
+          <label class="form-label">Title <span class="text-danger">*</span></label>
+          <input type="text" name="title" class="form-control" placeholder="Enter blog title" required>
+        </div>
+
+        <!-- Category -->
+        <div class="mb-3">
+          <label class="form-label">Category</label>
+          <select name="category" class="form-select">
+            <option>Technology</option>
+            <option>Food</option>
+            <option>Lifestyle</option>
+            <option>Education</option>
+            <option>Travel</option>
+            <option>Health</option>
+            <option>Finance</option>
+            <option>Entertainment</option>
+            <option>Sports</option>
+            <option>Business</option>
+            <option>Science</option>
+            <option>Politics</option>
+            <option>Environment</option>
+            <option>Culture</option>
+            <option>Fashion</option>
+          </select>
+        </div>
+
+        <!-- Author -->
+        <div class="mb-3">
+          <label class="form-label">Author</label>
+          <input type="text" name="author" class="form-control" placeholder="Author name">
+        </div>
+
+        <!-- Image -->
+        <div class="mb-3">
+          <label class="form-label">Image</label>
+          <input type="file" name="image" class="form-control">
+        </div>
+
+        <!-- Content -->
+        <div class="mb-3">
+          <label class="form-label">Content</label>
+          <textarea name="content" class="form-control" rows="6" placeholder="Write your blog content here..."></textarea>
+        </div>
+
+        <!-- Tags -->
+        <div class="mb-3">
+          <label class="form-label">Tags</label>
+          <input type="text" name="tags" class="form-control" placeholder="e.g. technology, AI, programming">
+        </div>
+
+        <!-- Buttons -->
+        <div class="d-flex justify-content-between">
+          <button type="submit" class="btn btn-success">Publish</button>
+          <a href="/blog/viewBlog" class="btn btn-secondary">Cancel</a>
+        </div>
+
+      </form>
+    </div>
+  </div>
+</div>
+
+<%- include('../footer') %>

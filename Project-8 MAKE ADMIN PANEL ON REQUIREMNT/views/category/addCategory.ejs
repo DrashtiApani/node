@@ -1,0 +1,67 @@
+<%- include('../header') %>
+<div class="page-wrapper">
+    <!-- ============================================================== -->
+    <!-- Bread crumb and right sidebar toggle -->
+    <!-- ============================================================== -->
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-12 d-flex no-block align-items-center">
+                <h4 class="page-title">Category</h4>
+                <div class="ml-auto text-right">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="#">Home</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Library</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================== -->
+    <!-- Container fluid  -->
+    <!-- ============================================================== -->
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card shadow-lg">
+                    <div class="card-body">
+                        <h4 class="card-title mb-4">Category Info</h4>
+                        <form class="form-horizontal" method="post" action="/category/insertcategory" enctype="multipart/form-data">
+                            
+                            <!-- Category Name -->
+                            <div class="form-group row">
+                                <label for="fname" class="col-sm-3 col-form-label text-right">Category Name</label>
+                                <div class="col-sm-9">
+                                    <input type="text" name="categoryname" class="form-control" id="fname" placeholder="Category Name Here">
+                                </div>
+                            </div>
+
+                            <!-- File Upload -->
+                            <div class="form-group row mt-3">
+                                <label class="col-sm-3 col-form-label text-right">File Upload</label>
+                                <div class="col-sm-9">
+                                    <div class="custom-file">
+                                        <input type="file" name="categoryimage" class="custom-file-input" id="validatedCustomFile" required>
+                                        <label class="custom-file-label" for="validatedCustomFile" name="profile">Choose file...</label>
+                                        <div class="invalid-feedback">Example invalid custom file feedback</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Submit -->
+                            <div class="form-group row mt-4">
+                                <div class="col-sm-12 text-center">
+                                    <button type="submit" class="btn btn-primary px-4">Submit</button>
+                                </div>
+                            </div>
+                        
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<%- include('../footer') %>

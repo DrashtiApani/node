@@ -1,0 +1,73 @@
+<%- include('../header') %>
+
+<div class="container my-5">
+    <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white">
+            <h3 class="mb-0">Edit Product</h3>
+        </div>
+        <div class="card-body">
+            <form method="post" action="/product/updateproduct/<%= product.id %>" enctype="multipart/form-data">
+                
+                <div class="mb-3">
+                    <label for="title" class="form-label">Product Title</label>
+                    <input type="text" id="title" name="title" value="<%= product.title %>" class="form-control" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="description" class="form-label">Description</label>
+                    <textarea id="description" name="description" class="form-control" rows="4" required><%= product.description %></textarea>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="price" class="form-label">Price</label>
+                        <input type="number" id="price" name="price" value="<%= product.price %>" class="form-control" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="quantity" class="form-label">Quantity</label>
+                        <input type="number" id="quantity" name="quantity" value="<%= product.quantity %>" class="form-control" required>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="category" class="form-label">Category</label>
+                    <select id="category" name="category" class="form-select" disabled>
+                        <% category.forEach(c=> { %>
+                            <option value="<%= c.id %>" <%= c.id==product.category ? 'selected' : '' %>><%= c.categoryname %></option>
+                        <% }) %>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label for="subcategory" class="form-label">Subcategory</label>
+                    <select id="subcategory" name="subcategory" class="form-select" disabled>
+                        <% subcategory.forEach(s=> { %>
+                            <option value="<%= s.id %>" <%= s.id==product.subcategory ? 'selected' : '' %>><%= s.subcategory %></option>
+                        <% }) %>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label for="extracategory" class="form-label">Extra Category</label>
+                    <select id="extracategory" name="extracategory" class="form-select" disabled>
+                        <% extracategory.forEach(e=> { %>
+                            <option value="<%= e.id %>" <%= e.id==product.extracategory ? 'selected' : '' %>><%= e.extracategory %></option>
+                        <% }) %>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label for="productimage" class="form-label">Product Image</label>
+                    <input type="file" id="productimage" name="productimage" class="form-control">
+                    <% if(product.productimage){ %>
+                        <img src="<%= product.productimage %>" class="img-thumbnail mt-2" width="150" height="150">
+                    <% } %>
+                </div>
+
+                <button type="submit" class="btn btn-success w-100">Update Product</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<%- include('../footer') %>

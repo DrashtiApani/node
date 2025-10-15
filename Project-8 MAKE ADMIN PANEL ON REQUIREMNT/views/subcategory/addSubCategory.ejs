@@ -1,0 +1,90 @@
+<%- include('../header') %>
+<div class="page-wrapper">
+    <!-- ============================================================== -->
+    <!-- Bread crumb and right sidebar toggle -->
+    <!-- ============================================================== -->
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-12 d-flex no-block align-items-center">
+                <h4 class="page-title">Add SubCategory</h4>
+                <div class="ml-auto text-right">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="#">Home</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Library</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================== -->
+    <!-- Container fluid  -->
+    <!-- ============================================================== -->
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card shadow-lg">
+                    <div class="card-body">
+                        <h4 class="card-title mb-4">SubCategory Info</h4>
+                        <form class="form-horizontal" method="post" action="/subcategory/addsubcategory">
+
+                            <!-- Category Select -->
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label text-right">Category</label>
+                                <div class="col-sm-9">
+                                    <select name="category" class="select2 form-control custom-select" style="width: 100%; height:36px;">
+                                        <option disabled selected>Select Category</option>
+                                        <% category.map((val,index)=>{ %>
+                                            <option value="<%= val._id %>">
+                                                <%= val.categoryname %>
+                                            </option>
+                                        <% }) %>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- SubCategory Name -->
+                            <div class="form-group row mt-3">
+                                <label for="subcategoryname" class="col-sm-3 col-form-label text-right">SubCategory Name</label>
+                                <div class="col-sm-9">
+                                    <input type="text" name="subcategory" class="form-control" id="subcategoryname" placeholder="Enter SubCategory Name">
+                                </div>
+                            </div>
+
+                            <!-- Submit Button -->
+                            <div class="form-group row mt-4">
+                                <div class="col-sm-12 text-center">
+                                    <button type="submit" class="btn btn-primary px-4">Submit</button>
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<%- include('../footer') %>
+
+    <% if(flash.success && flash.success.length > 0) { %>
+<script>
+  const Toast = Swal.mixin({
+    toast: true,
+    position: "top-end",
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+      toast.onmouseenter = Swal.stopTimer;
+      toast.onmouseleave = Swal.resumeTimer;
+    }
+  });
+  Toast.fire({
+    icon: "success",
+    title: "<%= flash.success[0] %>"
+  });
+</script>
+<% } %>

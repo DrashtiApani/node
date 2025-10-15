@@ -1,0 +1,213 @@
+<%- include('../header') %>
+
+  <style>
+    /* Modern Blog Card */
+    .blog-card {
+      transition: all 0.3s ease;
+      border: none;
+      border-radius: 14px;
+      overflow: hidden;
+      background: #fff;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      justify-content: space-between;
+      margin: 15px;
+    }
+
+    .blog-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 12px 25px rgba(0, 0, 0, 0.12);
+    }
+
+    .blog-image-wrapper {
+      position: relative;
+      height: 200px;
+      overflow: hidden;
+    }
+
+    .blog-image-wrapper img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform .4s ease;
+    }
+
+    .blog-card:hover .blog-image-wrapper img {
+      transform: scale(1.05);
+    }
+
+    /* Category badge on image */
+    .category-badge {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      background: linear-gradient(135deg, #ff6b6b, #f06595);
+      color: #fff;
+      padding: 6px 14px;
+      border-radius: 30px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+    }
+
+    /* search container */
+    .search-container {
+      display: flex;
+      align-items: center;
+      margin-bottom: 25px;
+      flex-wrap: wrap;
+      gap: 10px;
+      padding: 10px 15px;
+      border-radius: 8px;
+      max-width: 600px;
+      margin-top: -10px;
+      margin-bottom: 30px;
+      margin-left: auto;
+      margin-right: auto;
+      transition: all 0.3s ease;
+
+    }
+
+    .search-container input[type="text"] {
+      flex: 1;
+      padding: 10px 15px;
+      border-radius: 8px;
+      border: 1px solid #ced4da;
+      font-size: 0.95rem;
+      transition: all 0.3s ease;
+    }
+
+    .search-container input[type="text"]:focus {
+      outline: none;
+      border-color: #495057;
+      box-shadow: 0 0 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .search-container button {
+      padding: 10px 20px;
+      border-radius: 8px;
+      border: none;
+      background-color: #0d6efd;
+      color: #fff;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .search-container button:hover {
+      background-color: #0b5ed7;
+    }
+
+    /* Tag chips */
+    .tag-chip {
+      background: #f1f3f5;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      color: #495057;
+      margin-right: .4rem;
+      margin-bottom: .3rem;
+      display: inline-block;
+      padding: 4px 10px;
+    }
+
+    .empty-state {
+      max-width: 420px;
+      margin: 60px auto;
+      text-align: center;
+      color: #6c757d;
+    }
+  </style>
+
+
+  <div class="page-wrapper">
+    <div class="page-breadcrumb d-flex justify-content-between align-items-center mb-4">
+      <h3 class="fw-bold">All Blogs</h3>
+      <a href="/blog/addBlog" class="btn btn-primary">
+        <i class="fa fa-plus me-1"></i> Add New Blog
+      </a>
+    </div>
+
+    <form method="GET" class="search-container">
+      <input type="text" name="search" placeholder="Search blogs..."
+        value="<%= typeof search !== 'undefined' ? search : '' %>">
+      <button type="submit"><i class="fa fa-search me-1"></i> Search</button>
+    </form>
+
+    <% if (!Array.isArray(allblog) || allblog.length===0) { %>
+      <div class="empty-state">
+        <img src="/images/empty.svg" alt="No Blogs" width="140">
+        <h5 class="mt-3">No blogs found</h5>
+        <p class="small">Start by adding your first blog post.</p>
+        <a href="/blog/addBlog" class="btn btn-success">Add Blog</a>
+      </div>
+      <% } else { %>
+
+        <div class="row">
+          <% allblog.forEach((blog, index)=> { %>
+            <div class="col-12 col-md-6 col-lg-4 mb-4">
+              <div class="card blog-card h-100">
+
+                <div class="blog-image-wrapper">
+                  <% const imgUrl=blog.image ? (blog.image.startsWith('/') ? blog.image : '/' + blog.image)
+                    : '/images/no-image.jpg' ; %>
+                    <img src="<%= imgUrl %>" alt="<%= blog.title %>">
+                    <span class="category-badge">
+                      <%= blog.category || 'Uncategorized' %>
+                    </span>
+                </div>
+
+                <div class="card-body d-flex flex-column">
+                  <h5 class="card-title mb-1" style="min-height:48px;">
+                    <%= blog.title %>
+                  </h5>
+
+                  <p class="text-muted small mb-2">
+                    <i class="fa fa-user me-1"></i>
+                    <%= blog.author || 'Admin' %>
+                      &nbsp; • &nbsp;
+                      <i class="fa fa-calendar me-1"></i>
+                      <%= blog.created_date || (new Date().toLocaleDateString()) %>
+                  </p>
+
+                  <% if (blog.tags && Array.isArray(blog.tags) && blog.tags.length> 0) { %>
+                    <div class="mb-2">
+                      <% blog.tags.forEach(tag=> { %>
+                        <span class="tag-chip">#<%= tag %></span>
+                        <% }) %>
+                    </div>
+                    <% } %>
+
+                      <p class="card-text text-muted mb-3" style="flex: 1 0 auto;">
+                        <% const excerpt=(blog.content || "" ).replace(/(<([^>]+)>)/gi, "");
+                          %>
+                          <%= excerpt.length> 120 ? excerpt.substring(0,120) + "..." : excerpt %>
+                      </p>
+
+                      <div class="d-flex justify-content-between align-items-center mt-auto">
+                        <a href="/blog/viewBlog/<%= blog._id %>" class="btn btn-sm btn-outline-primary">
+                          <i class="fa fa-eye me-1"></i> Read More
+                        </a>
+
+                        <div>
+                          <a href="/blog/editBlog/<%= blog._id %>" class="btn btn-sm btn-outline-warning me-1">
+                            <i class="fa fa-edit"></i>
+                          </a>
+                          <a href="/blog/deleteBlog/<%= blog._id %>" class="btn btn-sm btn-outline-danger"
+                            onclick="return confirm('Are you sure you want to delete this blog?');">
+                            <i class="fa fa-trash"></i>
+                          </a>
+                        </div>
+                      </div>
+                </div>
+              </div>
+            </div>
+            <% }) %>
+        </div>
+
+        <% } %>
+  </div>
+
+  <%- include('../footer') %>
